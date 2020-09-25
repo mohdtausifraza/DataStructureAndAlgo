@@ -9,7 +9,7 @@
  */
 
 
-package easy.string;
+package level1.string;
 public class ImplementIndexOf {
     public static int indexOf(String haystack, String needle) {
         int len1=haystack.length(),len2=needle.length();
