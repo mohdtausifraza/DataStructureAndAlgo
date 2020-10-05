@@ -13,7 +13,7 @@ public class LinkedList {
         }
     }
 
-    public static ListNode createLikedList(int[] arr){
+    public static ListNode createLikedListFromArray(int[] arr){
         int i=1;
         ListNode head = new ListNode(arr[0],null);
         ListNode temp = head;
@@ -99,15 +99,86 @@ public class LinkedList {
         }
         return head;
     }
+
+    public static ListNode insertBeforeFirst(ListNode head , ListNode node){
+        node.next = head ;
+        head = node;
+        return head;
+    }
+
+    public static ListNode insertAfterPos(ListNode head , ListNode node , int pos){
+        if (pos < 0 || pos > length(head)){
+            System.out.println("Position is out of range : No insertion");
+            return head;
+        }
+        else if (pos == 0){
+            return insertBeforeFirst(head , node);
+        }else{
+            ListNode p = head;
+            int i;
+            for (i=1 ; i<pos ; i++){
+                p = p.next;
+            }
+            node.next = p.next;
+            p.next = node ;
+            return head;
+        }
+    }
+
+    /**
+     * If you always want to insert at last, then maintain a pointer at last.
+     */
+    private static ListNode last;
+    public  static ListNode insertAtLast(ListNode list , ListNode node){
+        if (list == null){
+            list = node;
+        }else{
+            last.next = node;
+        }
+        last = node;
+        return list;
+    }
+
+    /**
+     * Take only one pointer;
+     */
+    public static ListNode insertIntoSortedLinkedList(ListNode list , ListNode node){
+        ListNode ptr=list;
+        if (list == null || node.value < list.value){
+            node.next = list;
+            list = node ;
+            return list;
+        }
+        while (ptr.next != null && ptr.next.value < node.value){
+            ptr = ptr.next;
+        }
+        node.next = ptr.next;
+        ptr.next = node ;
+        return list;
+    }
     public static void main(String[] args) {
         int[] arr = {1,2,3,4,5,6,7,8,9};
-        ListNode list = createLikedList(arr);
+        ListNode list = createLikedListFromArray(arr);
         display(list);
         displayRecursively(list);
         System.out.println(length(list));
         System.out.println(sumOfAllElements(list));
         System.out.println(findMax(list));
         System.out.println(search(list,9));
-        display(moveToHead(list,4));
+        list = moveToHead(list,4);
+        display(list);
+        list = insertBeforeFirst(list , new ListNode(0,null));
+        display(list);
+        list = insertAfterPos(list , new ListNode(-1,null),5);
+        display(list);
+        ListNode insertAtLast = insertAtLast(null , new ListNode(11,null));
+        insertAtLast = insertAtLast(insertAtLast , new ListNode(22,null));
+        display(insertAtLast);
+        int[] arr2 = {1,3,4,5,6,7,8,9};
+        ListNode sortedList = createLikedListFromArray(arr2);
+        sortedList = insertIntoSortedLinkedList(sortedList , new ListNode(0,null));
+        sortedList = insertIntoSortedLinkedList(sortedList , new ListNode(2,null));
+        sortedList = insertIntoSortedLinkedList(sortedList , new ListNode(22,null));
+        display(sortedList);
     }
 }
