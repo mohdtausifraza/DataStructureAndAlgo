@@ -4,6 +4,9 @@ package LinkedList;
  * LinkedList is a collection of Nodes where each nodes contains data and reference to next node.
  */
 public class LinkedList {
+
+    private static ListNode list=null;
+
     public static class ListNode {
         int value;
         ListNode next;
@@ -156,9 +159,61 @@ public class LinkedList {
         ptr.next = node ;
         return list;
     }
+
+    public static ListNode deleteNode(int pos){
+        if (list == null || pos < 1){
+            System.out.println("No node found at the given position");
+            return null;
+        }else if(pos == 1){
+            ListNode deletedNode=list;
+            list = list.next;
+            return deletedNode;
+        }
+        ListNode ptr = list,deletedNode=null;
+        for (int i=1 ; i<pos-1 && ptr!=null ; i++){
+            ptr = ptr.next;
+        }
+        if (ptr == null || ptr.next == null){
+            System.out.println("No node found at the given position");
+        }else{
+            deletedNode=ptr.next;
+            ptr.next = ptr.next.next;
+        }
+        return deletedNode;
+    }
+
+    public static boolean isSortedLinkedList(){
+        if (list == null || list.next == null){
+            return true;
+        }
+        ListNode ptr = list;
+        while (ptr.next != null){
+            if(ptr.value > ptr.next.value){
+                return false;
+            }
+            ptr = ptr.next;
+        }
+        return true;
+    }
+
+    public static void removeDuplicateFromSortedLinkedList(){
+        int noOfNodesDeleted=0;
+        if (list == null || list.next == null){
+            return;
+        }
+        ListNode left = list, right=list.next;
+        while (right != null){
+            if (left.value == right.value){
+                left.next = right.next;
+            }else{
+                left = left.next;
+            }
+            right=right.next;
+        }
+    }
     public static void main(String[] args) {
-        int[] arr = {1,2,3,4,5,6,7,8,9};
-        ListNode list = createLikedListFromArray(arr);
+        int[] arr = {1,2,2,2,2};
+        list = createLikedListFromArray(arr);
         display(list);
         displayRecursively(list);
         System.out.println(length(list));
@@ -180,5 +235,10 @@ public class LinkedList {
         sortedList = insertIntoSortedLinkedList(sortedList , new ListNode(2,null));
         sortedList = insertIntoSortedLinkedList(sortedList , new ListNode(22,null));
         display(sortedList);
+        System.out.println(deleteNode(2).value);
+        display(list);
+        System.out.println(isSortedLinkedList());
+        removeDuplicateFromSortedLinkedList();
+        display(list);
     }
 }
