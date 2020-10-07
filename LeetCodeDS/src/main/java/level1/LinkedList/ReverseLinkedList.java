@@ -28,8 +28,8 @@ public class ReverseLinkedList {
 
     /**
      * Reversing the reference.
-     * Approach : Take three pointer and slide all three
-     * Make middle pointer next point to first pointer node.
+     * Approach :   Take three pointer and slide all three
+     *              Make middle pointer next point to first pointer node.
      */
     public ListNode reverseListThreePointer(ListNode head) {
         ListNode r=null,q=null,ptr=head;
