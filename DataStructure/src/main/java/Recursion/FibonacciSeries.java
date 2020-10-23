@@ -32,9 +32,30 @@ public class FibonacciSeries {
         return fibRecursive(n-2) + fibRecursive(n-1);
     }
 
-
+    /**
+     * Storing the result of function call so that it can be utilized again
+     * when we need the same Call or avoiding excessive call  is called MEMOIZATION.
+     *
+     * Time Complexity  : O(n)
+     */
+    static boolean flag =true;
+    static int[] arr;
+    public static int fibRecursiveMemoization(int n){
+        if (flag){
+            arr = new int[n];
+            flag =false;
+        }
+        if (n <= 1)
+            return n ;
+        if (arr[n-2] == 0)
+            arr[n-2] = fibRecursiveMemoization(n-2);
+        if (arr[n-1] == 0)
+            arr[n-1] = fibRecursiveMemoization(n-1);
+        return arr[n-2] + arr[n-1];
+    }
     public static void main(String[] args) {
         System.out.println(fibIterative(6));
         System.out.println(fibRecursive(5));
+        System.out.println(fibRecursiveMemoization(6));
     }
 }
