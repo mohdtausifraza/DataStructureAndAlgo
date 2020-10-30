@@ -1,7 +1,5 @@
 package Recursion;
 
-import com.sun.codemodel.internal.fmt.JStaticFile;
-
 public class Quiz {
     /**
      * Use of static
