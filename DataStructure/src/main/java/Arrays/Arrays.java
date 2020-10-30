@@ -155,7 +155,102 @@ public class Arrays {
         return -1;
     }
 
+    /**
+     * Get the element at the given index. If index is not in range return -1
+     * Time Complexity : O(n)
+     */
+    public static int get(int index){
+        if (index >=0 && index < length){
+            return arr[index];
+        }
+        return -1;
+    }
 
+    /**
+     * Set the new value at the given index and return the old value. If index is not in range return -1
+     * Time Complexity :
+     */
+    public static int set(int index , int value){
+        int oldvalue = -1;
+        if (index >=0 && index < length){
+            oldvalue = arr[index];
+            arr[index] = value;
+        }
+        return oldvalue;
+    }
+
+    /**
+     * Get the max element of an array;
+     * Time Complexity : O(n)
+     */
+    public static int max(){
+        int max = Integer.MIN_VALUE;
+        for (int i=0 ; i <  length ; i++){
+            if (max < arr[i])
+                max = arr[i];
+        }
+        return max;
+    }
+
+    /**
+     * Get the min element of an array;
+     * Time Complexity : O(n)
+     */
+    public static int min(){
+        int min = Integer.MAX_VALUE;
+        for (int i=0 ; i <  length ; i++){
+            if (min > arr[i])
+                min = arr[i];
+        }
+        return min;
+    }
+
+    /**
+     * Find the sum of all the element of an array;
+     * Time Complexity : O(n)
+     */
+    public static int sum(){
+        int sum = 0;
+        for (int i=0 ; i <  length ; i++){
+            sum += arr[i];
+        }
+        return sum;
+    }
+
+    /**
+     * Find the sum of all the element of an array [Recursively]
+     * Time Complexity : O(n)
+     */
+    public static int sumRecursively(int[] arr, int n){
+        if (n < 0){
+            return 0;
+        }
+        return sumRecursively(arr , n-1)+arr[n];
+    }
+
+    /**
+     * Find the average of all the element of an array [Recursively]
+     * Time Complexity : O(n)
+     */
+    public static float avg(){
+        int sum = 0;
+        for (int i=0 ; i <  length ; i++){
+            sum += arr[i];
+        }
+        return (float)sum/(length-1);
+    }
+
+    /**
+     * Convert ArrayList of int to Array and return
+     */
+    public static int[] toIntArray(List<Integer> arrayList){
+        int[] newArray = new int[arrayList.size()];
+        int i=0;
+        for (int a : arrayList) {
+            newArray[i++] = a;
+        }
+        return newArray;
+    }
     public static void main(String[] args) {
         int[] arr = {1,2,3,4,5,6};
         Arrays array = new Arrays(arr , 10,6);
@@ -186,5 +281,19 @@ public class Arrays {
         System.out.println(Arrays.linearSearchWithMoveToHead(4));
         display();
 
+        System.out.println(Arrays.get(0));
+
+        System.out.println(Arrays.set(5,10));
+        Arrays.display();
+
+        System.out.println(Arrays.max());
+
+        System.out.println(Arrays.min());
+
+        System.out.println(Arrays.sum());
+
+        System.out.println(sumRecursively(arr , length-1));
+
+        System.out.println(avg());
     }
 }
