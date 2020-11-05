@@ -41,6 +41,29 @@ public class MissingElements {
     }
 
     /**
+     *  Find more than one missing element in a Sorted Array,
+     *  Here element can start from any number like and more than one number is missing
+     *  arr = {101,102,103,104,105,106,108,109,111,112}
+     *  Approach :  Take diff = a[0];
+     *              If A[i]-i is not equal to the diff
+     *                  then number will be diff + i (index where it does not differ).
+     *                  And increment the diff by one. Continue
+     *
+     *  Time Complexity : O(n)
+     */
+    public static List<Integer> missingMoreThanOneElement(int[] array){
+        int diff = array[0];
+        List<Integer> missingElement = new ArrayList<>();
+        for (int i=0 ; i < array.length ; i++){
+            if (array[i]-i != diff){
+                missingElement.add(diff+i);
+                diff++;
+            }
+        }
+        return missingElement;
+    }
+
+    /**
      *  Find more than one missing element in an Un-Sorted Array,
      *  arr = {8,3,5,7,2,4,1,11,12}
      *  Approach :  Use HashTable / BitSet
@@ -77,6 +100,13 @@ public class MissingElements {
 
         int[] arr1 = {101,102,103,104,105,106,108,109,110,111,112};
         System.out.println(missingElement(arr1));
+
+        int[] arr2 = {101,103,104,105,106,108,109,110,111,112};
+        List<Integer> missingList = missingMoreThanOneElement(arr2);
+        for (int a : missingList){
+            System.out.print(a+" ");
+        }
+        System.out.println();
 
         int[] arr3 = {8,3,5,7,2,4,1,11,12};
         List<Integer> missingList2 = missingElementInUnSortedArray(arr3);
