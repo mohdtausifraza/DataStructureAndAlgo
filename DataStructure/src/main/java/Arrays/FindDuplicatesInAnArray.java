@@ -53,6 +53,62 @@ public class FindDuplicatesInAnArray {
         return duplicates;
     }
 
+    /**
+     *  Find duplicates elements frequency in a Sorted Array
+     *  Approach :  Create a BitSet HashTable with the frequency
+     *
+     *  Time Complexity : O(n)
+     */
+    public static Map<Integer,Integer> getDuplicatesFrequencyUsingHashTable(int[] array){
+        int low=Integer.MAX_VALUE,high=Integer.MIN_VALUE;
+        Map<Integer,Integer> duplicateFreq = new HashMap<>();
+        for (int a : array){
+            if (a < low){
+                low = a;
+            }else if (a > high){
+                high = a;
+            }
+        }
+        int[] hashTable = new int[high+1];
+        for (int a : array){
+            hashTable[a]++;
+        }
+        for (int i=low; i< high ; i++){
+            if (hashTable[i] > 1){
+                duplicateFreq.put(i,hashTable[i]);
+            }
+        }
+        return duplicateFreq;
+    }
+
+    /**
+     *  Find duplicates elements frequency in a Sorted Array
+     *  Approach :  Create a BitSet HashTable with the frequency
+     *
+     *  Time Complexity : O(n)
+     */
+    public static Map<Integer,Integer> getDuplicatesInUnsortedArray(int[] array){
+        int low=Integer.MAX_VALUE,high=Integer.MIN_VALUE;
+        Map<Integer,Integer> duplicateFreq = new HashMap<>();
+        for (int a : array){
+            if (a < low){
+                low = a;
+            }else if (a > high){
+                high = a;
+            }
+        }
+        int[] hashTable = new int[high+1];
+        for (int a : array){
+            hashTable[a]++;
+        }
+        for (int i=low; i< high ; i++){
+            if (hashTable[i] > 1){
+                duplicateFreq.put(i,hashTable[i]);
+            }
+        }
+        return duplicateFreq;
+    }
+
     public static void main(String[] args) {
         int[] arr = {2,3,4,5,7,7,8,9,9,9,9,10,11};
         List<Integer> duplicates = getDuplicates(arr);
@@ -68,5 +124,20 @@ public class FindDuplicatesInAnArray {
             System.out.print(s+" ");
         }
         System.out.println();
+
+        int[] arr2 = {2,3,4,5,7,7,8,9,9,9,9,10,10,10,11};
+        Map<Integer,Integer> frequency2 = getDuplicatesFrequencyUsingHashTable(arr2);
+        Set<Map.Entry<Integer,Integer>> entrySet2 = frequency2.entrySet();
+        for (Map.Entry<Integer,Integer> s : entrySet2){
+            System.out.print(s+" ");
+        }
+        System.out.println();
+
+        int[] arr3 = {1,4,7,4,2,2,2,5,6,8,2,1,4,5,5,6,10};
+        Map<Integer,Integer> frequency3 = getDuplicatesInUnsortedArray(arr3);
+        Set<Map.Entry<Integer,Integer>> entrySet3 = frequency3.entrySet();
+        for (Map.Entry<Integer,Integer> s : entrySet3){
+            System.out.print(s+" ");
+        }
     }
 }
