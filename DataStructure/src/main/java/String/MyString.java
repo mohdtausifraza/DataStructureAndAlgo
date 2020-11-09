@@ -71,7 +71,30 @@ public class MyString {
         return count;
     }
 
+    public static int countWords(String s){
+        char[] array = s.toCharArray();
+        int count = 0,i=0;
+        while (array[i] == ' '){
+            i++;
+        }
+        for (; i<array.length ; i++){
+            if (array[i] == ' ' && array[i-1] != ' '){
+                count++;
+            }
+        }
+        return (count > 0 && array[i-1]!=' ') ? ++count : count;
+    }
 
+    public static boolean isValidString(String s){
+        char[] array = s.toCharArray();
+        int count = 0,i=0;
+        for (char c : array){
+            if (!(c>='A' && c<='Z') && !(c>='a' && c<='z') &&  !(c>='0' && c<='9')){
+                return false;
+            }
+        }
+        return true;
+    }
 
     public static void main(String[] args) {
         String s1 = "decimaa";
@@ -89,5 +112,7 @@ public class MyString {
 
         System.out.println(countConsonants(s1));
 
+        System.out.println(countWords(s1));
+        System.out.println(isValidString(s1));
     }
 }
