@@ -120,7 +120,39 @@ public class MyString {
         return true;
     }
 
+    /**
+     * Find duplicates in string (Comparing one element with all other element)
+     * Time Complexity : O(n^2)
+     */
+    public static boolean hasDuplicateChar(String s1){
+        for (int i=0 ; i<s1.length() ; i++){
+            for (int j=i+1 ; j<s1.length() ; j++){
+                if (s1.charAt(i) == s1.charAt(j)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
+    /**
+     * Find duplicates in string (Using HashTable)
+     * Time Complexity : O(n)
+     * Space Complexity: O(1)
+     */
+    public static Map<Character,Integer> duplicateUsingHashTable(String s1){
+        int[] hashTable = new int[26];
+        for (int i=0 ; i<s1.length() ; i++){
+            hashTable[s1.charAt(i)-97]++;
+        }
+        Map<Character,Integer> map = new HashMap<>();
+        for (int i=0 ; i<26 ; i++){
+            if (hashTable[i] > 1) {
+                map.put((char) (i + 97), hashTable[i]);
+            }
+        }
+        return map;
+    }
 
     public static void main(String[] args) {
         String s1 = "decimaa";
@@ -142,5 +174,11 @@ public class MyString {
         System.out.println(isValidString(s1));
         System.out.println(compare(s1,s2));
         System.out.println(isPalindrome(s1));
+        System.out.println(hasDuplicateChar(s1));
+
+        Map<Character,Integer> duplicatesFrequency = duplicateUsingHashTable    (s1);
+        for(Map.Entry<Character, Integer> s : duplicatesFrequency.entrySet()){
+            System.out.println(s+" ");
+        }
     }
 }
