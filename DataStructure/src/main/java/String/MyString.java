@@ -96,6 +96,32 @@ public class MyString {
         return true;
     }
 
+    public static int compare(String s1, String s2){
+        if (s1.length() != s2.length()){
+            return (s1.length() > s2.length()) ?  1 :  -1;
+        }else {
+            for (int i=0 ; i<s1.length() ; i++){
+                if (s1.charAt(i) > s2.charAt(i)){
+                    return 1;
+                }else if (s1.charAt(i) < s2.charAt(i)){
+                    return 0;
+                }
+            }
+        }
+        return 0;
+    }
+
+    public static boolean isPalindrome(String s1){
+        int endIndex = s1.length()-1,startIndex=0;
+        while ( startIndex<endIndex ){
+            if (s1.charAt(startIndex++) != s1.charAt(endIndex--))
+                return false;
+        }
+        return true;
+    }
+
+
+
     public static void main(String[] args) {
         String s1 = "decimaa";
         String s2 = "medical";
@@ -114,5 +140,7 @@ public class MyString {
 
         System.out.println(countWords(s1));
         System.out.println(isValidString(s1));
+        System.out.println(compare(s1,s2));
+        System.out.println(isPalindrome(s1));
     }
 }
