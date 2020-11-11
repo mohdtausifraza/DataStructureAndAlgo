@@ -154,6 +154,53 @@ public class MyString {
         return map;
     }
 
+    /**
+     * Find duplicates in string (Using Bitwise Operator)
+     * Approach :   Take 4-byes in which 26bits will be useful.
+     *              Take A[i]-97 and check if that bits is set at memory taken above (Using Masking = AND)
+     *              If yes print the number
+     *              else set that bit (Using Merging = OR)
+     *
+     * Time Complexity : O(n)
+     */
+    public static void duplicateUsingBitwiseOperations(String s1){
+        int H = 0; // Taking 4 bytes (32 bits) in which we will use 26bits
+        int x = 0; // This we will be using for masking and merging
+        for (int i=0 ; i<s1.length() ; i++){
+            x=1;
+            x=x<<s1.charAt(i)-97; // MASKING
+            if ((x & H)> 0){
+                System.out.println(s1.charAt(i));
+            }else {
+                H = H | x ; // MERGING
+            }
+        }
+    }
+
+    /**
+     * check if the two strings are Anagram using HashTable
+     * Approach :   Traverse in the first string and increment element of HashTable by 1 (A[i]-99)
+     *              Traverse in the second string and increment element of HashTable by 1
+     *                  And check if the element is below 0 return false.
+     * Time Complexity : O(n)
+     */
+    public static boolean isAnagram(String s1, String s2){
+        if (s1.length() != s2.length()){
+            return false;
+        }
+        int[] hashTable = new int[26];
+        for (int i=0 ; i<s1.length() ; i++){
+            hashTable[s1.charAt(i)-97]++;
+        }
+
+        for (int i=0 ; i<s2.length() ; i++){
+            if(--hashTable[s2.charAt(i)-97] < 0){
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         String s1 = "decimaa";
         String s2 = "medical";
@@ -180,5 +227,8 @@ public class MyString {
         for(Map.Entry<Character, Integer> s : duplicatesFrequency.entrySet()){
             System.out.println(s+" ");
         }
+
+        duplicateUsingBitwiseOperations(s1);
+        System.out.println(isAnagram(s1,s2));
     }
 }
