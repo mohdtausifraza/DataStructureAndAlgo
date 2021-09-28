@@ -9,11 +9,9 @@ public class Sum {
      * Time Complexity : O(n)
      */
     public static void pairSumInUnSortedArray(int[] array,int sum){
-        int low=Integer.MAX_VALUE,high=Integer.MIN_VALUE;
+        int high=Integer.MIN_VALUE;
         for (int a : array){
-            if (a < low){
-                low = a;
-            }else if (a > high){
+            if (a > high){
                 high = a;
             }
         }
@@ -31,7 +29,7 @@ public class Sum {
     }
 
     /**
-     * Find pair such that a+b=k in an UnSorted Array
+     * Find pair such that a+b=k in an Sorted Array
      * Approach :   Take two pointer one i at start and another j at end
      *              Compare the sum of both the pointer
      *              if sum is greater j--

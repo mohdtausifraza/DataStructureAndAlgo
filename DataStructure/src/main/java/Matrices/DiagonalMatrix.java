@@ -4,7 +4,6 @@
  */
 package Matrices;
 
-import java.sql.SQLOutput;
 
 public class DiagonalMatrix {
     static int[] array;
