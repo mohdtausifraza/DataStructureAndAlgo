@@ -35,10 +35,29 @@ public class DoublyLinkedList {
         System.out.println("null");
     }
 
+    public static void reverseDisplay(ListNode head){
+        ListNode temp = head;
+        System.out.print("Head->");
+        while (temp.next != null){
+            temp = temp.next;
+        }
+        while (temp !=null){
+            System.out.print(temp.value + "<=>");
+            temp = temp.prev;
+        }
+        System.out.println("null");
+    }
 
     public static void main(String[] args) {
         int[] arr = {1,2,3,4,5,6,7,8,9};
         ListNode doublyLinkedList = create(arr);
         display(doublyLinkedList);
+//        display(insert(doublyLinkedList , new ListNode(10),5));
+//        ListNode deleteInDoublyList = delete(doublyLinkedList,10);
+//        display(deleteInDoublyList);
+//        reverseDisplay(deleteInDoublyList);
+//        ListNode reversed = reverse(doublyLinkedList);
+//        display(reversed);
+//        reverseDisplay(reversed);
     }
 }
