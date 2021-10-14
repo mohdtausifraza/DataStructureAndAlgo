@@ -47,6 +47,46 @@ public class CircularLinkedList {
         System.out.println("Head");
     }
 
+    /**
+     * Insert into CircularLinkedList
+     * 1. Insert before head
+     * 2. Inserts at given position
+     */
+    public static ListNode insert(ListNode head , ListNode node, int pos){
+        ListNode last=null;
+        if (pos == 0){
+            if (head == null){
+                node.next = node;
+                head = node;
+                return head;
+            }else {
+                last = head.next;
+                while (last.next != head){
+                    last = last.next;
+                }
+                last.next = node;
+                node.next = head;
+                head = node;
+            }
+        }else{
+            if (head == null){
+                System.out.println("Position is out of Range !");
+                return null;
+            }
+            last = head.next;
+            for (int i=1 ; i< pos-1 ; i++){
+                if (last.next == head){
+                    System.out.println("Position is out of Range !");
+                    return head;
+                }else{
+                    last = last.next;
+                }
+            }
+            node.next = last.next;
+            last.next = node;
+        }
+        return head;
+    }
 
     public static void main(String[] args) {
         int arr[] = {1,2,3,4,5,6,7,8,9};
