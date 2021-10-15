@@ -88,12 +88,48 @@ public class CircularLinkedList {
         return head;
     }
 
+    /**
+     * Delete from CircularLinkedList
+     * 1. Delete head
+     * 2. Delete Node at given position
+     */
+    public  static ListNode delete(ListNode head, int pos){
+        if (head == null){
+            System.out.println("No node found to be deleted !");
+            return null;
+        }else if (pos==1){
+            if (head == head.next)
+                return null;
+            else{
+                ListNode last = head.next;
+                while(last.next != head){
+                    last = last.next;
+                }
+                head = head.next;
+                last.next.next = null;
+                last.next = head;
+            }
+        }else{
+            ListNode prev = head;
+            for(int i=1 ; i<pos-1 ; i++){
+                prev = prev.next;
+                if (prev.next == head){
+                    System.out.println("Position is out of range !");
+                    return head;
+                }
+            }
+            ListNode temp = prev.next.next;
+            prev.next.next = null;
+            prev.next = temp;
+        }
+        return head;
+    }
     public static void main(String[] args) {
         int arr[] = {1,2,3,4,5,6,7,8,9};
         ListNode circularLinkedList = create(arr);
         display(circularLinkedList);
 
-//        display(insert(circularLinkedList, new ListNode(0),5));
-//        display(delete(circularLinkedList,5));
+        display(insert(circularLinkedList, new ListNode(0),5));
+        display(delete(circularLinkedList,5));
     }
 }
