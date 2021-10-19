@@ -84,10 +84,43 @@ public class CircularDoublyLinkedList {
         return head;
     }
 
+    public static ListNode delete(ListNode head , int index){
+        ListNode temp =head;
+        if (head == null || index < 1){
+            System.out.println("Index Out of bound");
+        }else if (index == 1){
+            if (head == head.next){
+                return null;
+            }else {
+                while(temp.next != head){
+                    temp = temp.next;
+                }
+                temp.next = head.next;
+                head.next.prev = temp;
+                temp = head;
+                head = head.next;
+                temp.next = null;
+            }
+        }else {
+            for (int i = 1 ; i<index-1 ; i++){
+                temp = temp.next;
+                if (temp.next == head){
+                    System.out.println("Index Out of bound");
+                    return head;
+                }
+            }
+            temp.next= temp.next.next;
+            temp.next.prev = temp;
+        }
+        temp = null;
+        return head;
+    }
     public static void main(String[] args) {
         int arr[] = {1,2,3,4,5,6,7,8,9};
         ListNode circularDLL = create(arr);
         display(circularDLL);
         ListNode insert = insert(circularDLL, new ListNode(0),1);
+        ListNode delete = delete(circularDLL,1);
+        display(delete);
     }
 }
