@@ -68,6 +68,22 @@ public class QueueUsingArray {
         return data;
     }
 
+    public int first(){
+        if (isEmpty()){
+            System.out.println("Queue is Empty");
+            return -1;
+        }
+        return queue[front];
+    }
+
+    public int last(){
+        if (isEmpty()){
+            System.out.println("Queue is Empty");
+            return -1;
+        }
+        return queue[rear];
+    }
+
     public boolean isEmpty(){
         return  front == rear;
     }
@@ -110,6 +126,14 @@ public class QueueUsingArray {
                     break;
                 case 2 :
                     System.out.println("Data dequeued is : "+queue.dequeue());
+                    queue.display();
+                    break;
+                case 3 :
+                    System.out.println("First element is : "+queue.first());
+                    queue.display();
+                    break;
+                case 4 :
+                    System.out.println("Last element is : "+queue.last());
                     queue.display();
                     break;
                 case 5 :
