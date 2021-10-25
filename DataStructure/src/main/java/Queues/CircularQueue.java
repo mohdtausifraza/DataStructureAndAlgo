@@ -31,6 +31,17 @@ public class CircularQueue extends QueueUsingArray{
             queue[rear] = data;
         }
     }
+    public int dequeue(){
+        int data=-1;
+        if (isEmpty()){
+            System.out.println("Queue is Empty");
+        }else {
+            front = (front+1)%size;
+            data = queue[front];
+            queue[front] = 0;
+        }
+        return data;
+    }
 
     public static void main(String[] args) {
         System.out.println("Enter the size of the Circular Queue");
@@ -41,6 +52,7 @@ public class CircularQueue extends QueueUsingArray{
         while (choice != 8){
             System.out.println("Enter Your choice");
             System.out.println("1.enqueue(T x)");
+            System.out.println("2.dequeue()");
             System.out.println("3.first()");
             System.out.println("4.last()");
             System.out.println("5.isEmpty()");
@@ -53,6 +65,10 @@ public class CircularQueue extends QueueUsingArray{
                     System.out.println("Enter the element to be enqueued");
                     int data = new Scanner(System.in).nextInt();
                     queue.enqueue(data);
+                    queue.display();
+                    break;
+                case 2 :
+                    System.out.println("Data dequeued is : "+queue.dequeue());
                     queue.display();
                     break;
                 case 3 :
