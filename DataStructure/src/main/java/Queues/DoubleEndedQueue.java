@@ -57,6 +57,38 @@ public class DoubleEndedQueue {
         return queue[rear--];
     }
 
+    public int dequeueFromFront(){
+        if (rear == front){
+            System.out.println("Queue is empty cannot dequeue");
+            return -1;
+        }
+        return queue[++front];
+    }
+
+    public int first(){
+        if (isEmpty()){
+            System.out.println("Queue is Empty");
+            return -1;
+        }
+        return queue[front];
+    }
+
+    public int last(){
+        if (isEmpty()){
+            System.out.println("Queue is Empty");
+            return -1;
+        }
+        return queue[rear];
+    }
+
+    public boolean isEmpty(){
+        return  front == rear;
+    }
+
+    public boolean isFull(){
+        return (rear == size-1) && (front==-1);
+    }
+
     public void display(){
         System.out.println("Displaying the Queue");
         for (int i=front+1 ; i<=rear ; i++){
@@ -75,6 +107,12 @@ public class DoubleEndedQueue {
             System.out.println("Enter Your choice");
             System.out.println("1.enqueueFromFront(T x)");
             System.out.println("2.enqueueFromRear(T x)");
+            System.out.println("3.dequeueFromFront()");
+            System.out.println("4.dequeueFromRear()");
+            System.out.println("5.first()");
+            System.out.println("6.last()");
+            System.out.println("7.isEmpty()");
+            System.out.println("8.isFull()");
             System.out.println("9.display()");
             System.out.println("10.Exit()");
             int option = new Scanner(System.in).nextInt();
@@ -89,8 +127,28 @@ public class DoubleEndedQueue {
                     queue.enqueueFromRear(new Scanner(System.in).nextInt());
                     queue.display();
                     break;
+                case 3 :
+                    System.out.println("Data dequeued is : "+queue.dequeueFromFront());
+                    queue.display();
+                    break;
                 case 4 :
                     System.out.println("Data dequeued is : "+queue.dequeueFromRear());
+                    queue.display();
+                    break;
+                case 5 :
+                    System.out.println("First element is : "+queue.first());
+                    queue.display();
+                    break;
+                case 6 :
+                    System.out.println("Last element is : "+queue.last());
+                    queue.display();
+                    break;
+                case 7 :
+                    System.out.println("IsEmpty : "+queue.isEmpty());
+                    queue.display();
+                    break;
+                case 8 :
+                    System.out.println("IsFull : "+queue.isFull());
                     queue.display();
                     break;
                 case 9 :
