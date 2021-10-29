@@ -49,6 +49,22 @@ public class DoubleEndedQueue {
         queue[++rear] = data;
     }
 
+    public int dequeueFromRear(){
+        if (rear == front){
+            System.out.println("Queue is empty cannot dequeue");
+            return -1;
+        }
+        return queue[rear--];
+    }
+
+    public void display(){
+        System.out.println("Displaying the Queue");
+        for (int i=front+1 ; i<=rear ; i++){
+            System.out.print(queue[i]+" ");
+        }
+        System.out.println();
+    }
+
     public static void main(String[] args) {
         System.out.println("Enter the size of the Queue");
         int size = new Scanner(System.in).nextInt();
@@ -59,18 +75,26 @@ public class DoubleEndedQueue {
             System.out.println("Enter Your choice");
             System.out.println("1.enqueueFromFront(T x)");
             System.out.println("2.enqueueFromRear(T x)");
+            System.out.println("9.display()");
             System.out.println("10.Exit()");
             int option = new Scanner(System.in).nextInt();
             switch (option){
                 case 1 :
                     System.out.println("Enter the element to be Enqueued From Front");
                     queue.enqueueFromFront(new Scanner(System.in).nextInt());
-//                    queue.display();
+                    queue.display();
                     break;
                 case 2 :
                     System.out.println("Enter the element to be Enqueued From Rear");
                     queue.enqueueFromRear(new Scanner(System.in).nextInt());
-//                    queue.display();
+                    queue.display();
+                    break;
+                case 4 :
+                    System.out.println("Data dequeued is : "+queue.dequeueFromRear());
+                    queue.display();
+                    break;
+                case 9 :
+                    queue.display();
                     break;
                 case 10 :
                     choice = 10;
