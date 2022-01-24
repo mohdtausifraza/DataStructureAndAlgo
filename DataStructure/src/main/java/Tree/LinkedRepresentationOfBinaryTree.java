@@ -68,6 +68,16 @@ public class LinkedRepresentationOfBinaryTree {
         }
     }
 
+    // Inorder Traversal
+    // Time Complexity : O(n)
+    private void inorder(Node node){
+        if (node!=null){
+            inorder(node.leftChild);
+            System.out.print(node.data+" ");
+            inorder(node.rightChild);
+        }
+    }
+
     public static void main(String[] args) {
         LinkedRepresentationOfBinaryTree tree = new LinkedRepresentationOfBinaryTree();
         int[] array = new int[]{8,3,5,12,-1,10,6,-1,4,-1,-1,2,-1,9,7,};
