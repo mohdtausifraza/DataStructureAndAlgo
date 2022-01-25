@@ -88,7 +88,21 @@ public class LinkedRepresentationOfBinaryTree {
         }
     }
 
-
+    //Iterative Preorder
+    public void iterativePreorder(Node node){
+        StackUsingLinkedList<Node> stack = new StackUsingLinkedList<>();
+        Node temp = node;
+        while (temp!=null || !stack.isEmpty()){
+            if (temp!=null){
+                System.out.println(temp.data);
+                stack.push(temp);
+                temp=temp.leftChild;
+            }else {
+                temp = stack.pop();
+                temp = temp.rightChild;
+            }
+        }
+    }
 
     public static void main(String[] args) {
         LinkedRepresentationOfBinaryTree tree = new LinkedRepresentationOfBinaryTree();
