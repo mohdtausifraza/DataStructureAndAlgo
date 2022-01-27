@@ -104,6 +104,21 @@ public class LinkedRepresentationOfBinaryTree {
         }
     }
 
+    public void iterativeInorder(Node node) {
+        StackUsingLinkedList<Node> stack = new StackUsingLinkedList<>();
+        Node temp = node;
+        while (temp!=null || !stack.isEmpty()){
+            if(temp!=null){
+                stack.push(temp);
+                temp=temp.leftChild;
+            }else{
+                temp=stack.pop();
+                System.out.println(temp.data);
+                temp=temp.rightChild;
+            }
+        }
+    }
+
     public static void main(String[] args) {
         LinkedRepresentationOfBinaryTree tree = new LinkedRepresentationOfBinaryTree();
         int[] array = new int[]{8,3,5,12,-1,10,6,-1,4,-1,-1,2,-1,9,7,};
