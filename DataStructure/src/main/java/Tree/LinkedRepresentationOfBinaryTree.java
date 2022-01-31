@@ -141,7 +141,27 @@ public class LinkedRepresentationOfBinaryTree {
            }
         }
     }
-    public static void main(String[] args) {
+
+    //LevelOrder Traversal
+    public void leverOrderTraversal(Node node){
+        QueueUsingLinkedList<Node> queue = new QueueUsingLinkedList<>();
+        Node temp = node;
+        queue.enqueue(temp);
+        System.out.println(temp.data);
+        while(!queue.isEmpty()){
+            temp = queue.dequeue();
+            if (temp.leftChild!=null){
+                queue.enqueue(temp.leftChild);
+                System.out.println(temp.leftChild.data);
+            }
+            if (temp.rightChild!=null) {
+                queue.enqueue(temp.rightChild);
+                System.out.println(temp.rightChild.data);
+            }
+        }
+    }
+
+        public static void main(String[] args) {
         LinkedRepresentationOfBinaryTree tree = new LinkedRepresentationOfBinaryTree();
         int[] array = new int[]{8,3,5,12,-1,10,6,-1,4,-1,-1,2,-1,9,7,};
         Node root = tree.createTree(array);
