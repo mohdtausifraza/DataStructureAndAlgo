@@ -190,6 +190,23 @@ public class LinkedRepresentationOfBinaryTree {
         }
         return 0;
     }
+
+    /**
+     * Counting Leaf Node
+     */
+    public int countLeafNodes(Node node){
+        if(node!=null){
+            int x,y;
+            x=countLeafNodes(node.leftChild);
+            y=countLeafNodes(node.rightChild);
+            if (node.rightChild==null && node.leftChild==null){
+                return x+y+1;
+            }else{
+                return x+y;
+            }
+        }
+        return 0;
+    }
     public static void main(String[] args) {
         LinkedRepresentationOfBinaryTree tree = new LinkedRepresentationOfBinaryTree();
         int[] array = new int[]{8,3,5,12,-1,10,6,-1,4,-1,-1,2,-1,9,7,};
