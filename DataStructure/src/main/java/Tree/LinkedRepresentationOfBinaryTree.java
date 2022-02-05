@@ -225,6 +225,18 @@ public class LinkedRepresentationOfBinaryTree {
         return 0;
     }
 
+    /**
+     * Sum of All Element of a Tree
+     */
+    public int sumOfElements(Node node){
+        int x,y;
+        if (node!=null){
+            x=sumOfElements(node.leftChild);
+            y=sumOfElements(node.rightChild);
+            return x+y+node.data;
+        }
+        return 0;
+    }
     public static void main(String[] args) {
         LinkedRepresentationOfBinaryTree tree = new LinkedRepresentationOfBinaryTree();
         int[] array = new int[]{8,3,5,12,-1,10,6,-1,4,-1,-1,2,-1,9,7,};
