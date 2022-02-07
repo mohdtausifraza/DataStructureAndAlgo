@@ -251,6 +251,34 @@ public class LinkedRepresentationOfBinaryTree {
         return 0;
     }
 
+    /**
+     * Create BinaryTree from Preorder and Inorder Traversal (Recursively)
+     * APPROACH :
+     *     Create a map of INORDER traversal where element is key and index is value
+     *     Create root by iterating in PREORDER traversal one by one, and
+     *     Call method recursively to create left and right child of root,
+     *     By dividing the map based on the PREORDER ELEMENT.
+     */
+    private Node createFromPreorderAndInOrder(int[] preorder, int[] inorder){
+        // Creating Map of Inorder Traversal Data and index
+        Map<Integer,Integer> map = new HashMap<>();
+        IntStream.range(0,inorder.length).forEach(i-> map.put(inorder[i],i));
+
+        AtomicInteger pIndex = new AtomicInteger(0);
+        return createFromPreorderAndInOrder(0,inorder.length-1,map,preorder,pIndex);
+    }
+    private Node createFromPreorderAndInOrder(int start, int end, Map<Integer,Integer> map,int[] preorder, AtomicInteger  pIndex){
+        if (start>end){
+            return null;
+        }
+        // Creating root from preorder traversal
+        Node root = new Node(preorder[pIndex.getAndIncrement()]);
+        int indexOfRootData = map.get(root.data);
+        //Calling Method recursively to create left and right child by diving the inorder map using root data.
+        root.leftChild= createFromPreorderAndInOrder(start,indexOfRootData-1,map,preorder,pIndex);
+        root.rightChild= createFromPreorderAndInOrder(indexOfRootData+1,end,map,preorder,pIndex);
+        return root;
+    }
 
     public static void main(String[] args) {
         LinkedRepresentationOfBinaryTree tree = new LinkedRepresentationOfBinaryTree();
