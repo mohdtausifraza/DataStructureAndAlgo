@@ -280,9 +280,56 @@ public class LinkedRepresentationOfBinaryTree {
         return root;
     }
 
+
+    /**
+     * Create BinaryTree from Postorder and Inorder Traversal (Recursively)
+     *    HINTS : Traverse in Postorder from end to start
+     */
+    private Node createFromPostorderAndInOrder(int[] postorder, int[] inorder){
+        // Creating Map of Inorder Traversal Data and index
+        Map<Integer,Integer> map = new HashMap<>();
+        IntStream.range(0,inorder.length).forEach(i-> map.put(inorder[i],i));
+
+        AtomicInteger pIndex = new AtomicInteger(postorder.length-1);
+        return createFromPostorderAndInOrder(0,inorder.length-1,map,postorder,pIndex);
+    }
+    private Node createFromPostorderAndInOrder(int start, int end, Map<Integer,Integer> map,int[] postorder, AtomicInteger  pIndex){
+        if (start>end){
+            return null;
+        }
+        // Creating root from postorder traversal, starting from end
+        Node root = new Node(postorder[pIndex.getAndDecrement()]);
+        int indexOfRootData = map.get(root.data);
+        //Calling Method recursively to create left and right child by diving the inorder map using root data.
+        root.rightChild= createFromPostorderAndInOrder(indexOfRootData+1,end,map,postorder,pIndex);
+        root.leftChild= createFromPostorderAndInOrder(start,indexOfRootData-1,map,postorder,pIndex);
+        return root;
+    }
+
     public static void main(String[] args) {
         LinkedRepresentationOfBinaryTree tree = new LinkedRepresentationOfBinaryTree();
         int[] array = new int[]{8,3,5,12,-1,10,6,-1,4,-1,-1,2,-1,9,7,};
         Node root = tree.createTree(array);
+        System.out.println(tree.height(root));
+
+        System.out.println("Creating Binary Tree From Preorder and Inorder");
+        int[] inorder1 = { 4, 2, 1, 7, 5, 8, 3, 6 };
+        int[] preorder1 = { 1, 2, 4, 3, 5, 7, 8, 6 };
+        Node root1 = tree.createFromPreorderAndInOrder(preorder1,inorder1);
+        System.out.print("Inorder Traversal :");
+        tree.inorder(root1);
+        System.out.print("\nPreorder Traversal :");
+        tree.preorder(root1);
+
+        System.out.println("\nCreating Binary Tree From Postorder and Inorder");
+        int[] inorder2 = { 4, 2, 1, 7, 5, 8, 3, 6 };
+        int[] postorder2 = { 4, 2, 7, 8, 5, 6, 3, 1 };
+        Node root2 = tree.createFromPostorderAndInOrder(postorder2,inorder2);
+        System.out.print("Inorder Traversal :");
+        tree.inorder(root2);
+        System.out.print("\nPreorder Traversal :");
+        tree.postorder(root2);
+
+
     }
 }
