@@ -47,7 +47,21 @@ public class LinkedRepresentationOfBST {
         return root;
     }
 
-
+    /**
+     * Insert in a BST (Recursive)
+     */
+    public Node insertRecursively(Node node, int key) {
+        if (node == null) {
+            return new Node(key);
+        } else if (key == node.data) {
+            return node;
+        } else if (key < node.data) {
+            node.leftChild = insertRecursively(node.leftChild, key);
+        } else {
+            node.rightChild = insertRecursively(node.rightChild, key);
+        }
+        return node;
+    }
 
     public static void main(String[] args) {
         LinkedRepresentationOfBST bst = new LinkedRepresentationOfBST();
