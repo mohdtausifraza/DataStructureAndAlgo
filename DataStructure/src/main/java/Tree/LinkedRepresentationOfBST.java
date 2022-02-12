@@ -63,6 +63,20 @@ public class LinkedRepresentationOfBST {
         return node;
     }
 
+    /**
+     * Creating BST from given keys
+     */
+    public Node createBST(int[] keys) {
+        if (keys.length < 1)
+            return null;
+        Node root = insertIteratively(null, keys[0]);
+        IntStream.range(1, keys.length).forEach(i -> {
+            insertIteratively(root, keys[i]);
+        });
+        return root;
+    }
+
+
     public static void main(String[] args) {
         LinkedRepresentationOfBST bst = new LinkedRepresentationOfBST();
         int[] keys = {9, 15, 5, 20, 16, 8, 12, 3, 6};
