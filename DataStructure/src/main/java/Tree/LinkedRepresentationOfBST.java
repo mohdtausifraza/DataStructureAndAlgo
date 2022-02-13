@@ -76,6 +76,17 @@ public class LinkedRepresentationOfBST {
         return root;
     }
 
+    /**
+     * Inorder Traversal in BST
+     * It will always gives the element in sorted order
+     */
+    public void inorder(Node node) {
+        if (node != null) {
+            inorder(node.leftChild);
+            System.out.print(node.data + "  ");
+            inorder(node.rightChild);
+        }
+    }
 
     public static void main(String[] args) {
         LinkedRepresentationOfBST bst = new LinkedRepresentationOfBST();
