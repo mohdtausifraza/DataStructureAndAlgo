@@ -88,6 +88,36 @@ public class LinkedRepresentationOfBST {
         }
     }
 
+    /**
+     * Searching in BST (Recursive)
+     */
+    public Node searchRecursive(Node node, int key) {
+        if (node == null) {
+            return null;
+        } else if (node.data == key) {
+            return node;
+        } else if (key < node.data) {
+            return searchRecursive(node.leftChild, key);
+        } else {
+            return searchRecursive(node.rightChild, key);
+        }
+    }
+
+    /**
+     * Searching in BST (Iterative)
+     */
+    public Node searchIterative(Node node, int key) {
+        while (node != null) {
+            if (node.data == key) {
+                return node;
+            } else if (key < node.data) {
+                node = node.leftChild;
+            } else {
+                node = node.rightChild;
+            }
+        }
+        return null;
+    }
     public static void main(String[] args) {
         LinkedRepresentationOfBST bst = new LinkedRepresentationOfBST();
         int[] keys = {9, 15, 5, 20, 16, 8, 12, 3, 6};
