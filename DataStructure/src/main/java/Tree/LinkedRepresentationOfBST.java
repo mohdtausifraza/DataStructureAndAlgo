@@ -118,6 +118,47 @@ public class LinkedRepresentationOfBST {
         }
         return null;
     }
+
+    /**
+     * Height Of a Tree
+     */
+    public int height(Node node) {
+        int x, y;
+        if (node != null) {
+            x = height(node.leftChild);
+            y = height(node.rightChild);
+            return (x > y) ? x + 1 : y + 1;
+        }
+        return 0;
+    }
+
+    /**
+     * Inorder Predecessor of a Node
+     */
+    public Node inorderPredecessor(Node node) {
+        if (node == null || node.leftChild == null) {
+            return null;
+        }
+        node = node.leftChild;
+        while (node.rightChild != null) {
+            node = node.rightChild;
+        }
+        return node;
+    }
+
+    /**
+     * Inorder Successor of a Node
+     */
+    public Node inorderSuccessor(Node node) {
+        if (node == null || node.rightChild == null) {
+            return null;
+        }
+        node = node.rightChild;
+        while (node.leftChild != null) {
+            node = node.leftChild;
+        }
+        return node;
+    }
     public static void main(String[] args) {
         LinkedRepresentationOfBST bst = new LinkedRepresentationOfBST();
         int[] keys = {9, 15, 5, 20, 16, 8, 12, 3, 6};
