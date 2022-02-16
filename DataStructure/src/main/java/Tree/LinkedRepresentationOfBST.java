@@ -196,6 +196,73 @@ public class LinkedRepresentationOfBST {
         }
         return node;
     }
+
+    /**
+     * Generating BST from given Inorder Traversal array int pre[].
+     * If any traversal Like PREORDER, or POSTORDER is given, Then we can generate BST.
+     * Because INORDER we can find by sorting the pre[].
+     *
+     * APPROACH :
+     *      Create a node from first element of the Traversal, and make ROOT and TEMP point to it.
+     *      Create a stack.
+     *      If element from array is < then TEMP.data
+     *          1. Create a new Node, and make TEMP.leftChild point it.
+     *          2. PUSH the temp reference in stack.
+     *          3. Make temp point to the NEW Node
+     *      If element from array is > then TEMP.data.
+     *          1. If Stack == NULL || element is between TEMP.data and StackTop.data
+     *              Yes
+     *                  1. Create a new Node and make TEMP.rightChild to point it.
+     *                  2. Make TEMP point to the new Node.
+     *                  Continue in the loop
+     *              NO
+     *                  1. pop the element from the stack, make TEMP point to this node, and continue in the loop without incrementing i.
+     */
+
+    private Node createFromPreorder(int[] preorder) {
+        if (preorder.length == 0) {
+            return null;
+        }
+        int i = 1;
+        Node root = new Node(preorder[0]);
+        Node temp = root;
+        StackUsingLinkedList<Node> stack = new StackUsingLinkedList<>();
+        while (i < preorder.length) {
+            if (preorder[i] < temp.data) {
+                temp.leftChild = new Node(preorder[i++]);
+                stack.push(temp);
+                temp = temp.leftChild;
+            } else {
+                if (stack.isEmpty() || preorder[i] < stack.stackTop().data) {
+                    temp.rightChild = new Node(preorder[i++]);
+                    temp = temp.rightChild;
+                } else {
+                    temp = stack.pop();
+                }
+            }
+        }
+        return root;
+    }
+
+    /**
+     * Generating BST from given Inorder Traversal array int pre[].
+     */
+    private Node createFromPreorderRecursive(Node root, int[] preorder, int index, StackUsingLinkedList<Node> stack) {
+        if ( (preorder.length > 0) && (index < preorder.length)) {
+            if (root == null) {
+                root = createFromPreorderRecursive(new Node(preorder[index]), preorder, ++index,stack);
+            }
+            else if (preorder[index] < root.data) {
+                stack.push(root);
+                root.leftChild = createFromPreorderRecursive(new Node(preorder[index]), preorder, ++index, stack);
+            } else if (stack.isEmpty() || preorder[index] < stack.stackTop().data) {
+                root.rightChild = createFromPreorderRecursive(new Node(preorder[index]), preorder, ++index, stack);
+            } else {
+                createFromPreorderRecursive(stack.pop(), preorder, index, stack);
+            }
+        }
+        return root;
+    }
     public static void main(String[] args) {
         LinkedRepresentationOfBST bst = new LinkedRepresentationOfBST();
         int[] keys = {9, 15, 5, 20, 16, 8, 12, 3, 6};
@@ -227,5 +294,16 @@ public class LinkedRepresentationOfBST {
         } else {
             System.out.println("No Inorder successor found for " + node.data);
         }
+
+        int[] preorder1 = new int[]{30,20,10,15,25,40,50,45};
+        Node root1 = bst.createFromPreorder(preorder1);
+        System.out.println("\nResult of createFromPreorder : ");
+        bst.inorder(root1);
+
+        int[] preorder2 = new int[]{30,20,10,15,25,40,50,45};
+        Node root2 = bst.createFromPreorderRecursive(null, preorder2, 0, new StackUsingLinkedList<>());
+        System.out.println("\nResult of createFromPreorderRecursive : ");
+        bst.inorder(root2);
+
     }
 }
