@@ -263,6 +263,49 @@ public class LinkedRepresentationOfBST {
         }
         return root;
     }
+
+    /**
+     * Generating BST from given Postorder Traversal
+     * Hints : Traverse in array from left to right
+     */
+    private Node createFromPostorderRecursive(Node root, int[] postorder,int index, StackUsingLinkedList<Node> stack){
+        if ( (postorder.length > 0) && (index>=0)){
+            if (root==null){
+                root = createFromPostorderRecursive(new Node(postorder[index]), postorder,--index, stack);
+            }else if (postorder[index] > root.data){
+                stack.push(root);
+                root.rightChild=createFromPostorderRecursive(new Node(postorder[index]), postorder,--index, stack);
+            }else if (stack.isEmpty() || postorder[index] > stack.stackTop().data){
+                root.leftChild=createFromPostorderRecursive(new Node(postorder[index]), postorder,--index, stack);
+            }else {
+                createFromPostorderRecursive(stack.pop(), postorder,index, stack);
+            }
+        }
+        return root;
+    }
+    private Node createFromPostorder(int[] postorder){
+        int index=postorder.length-1;
+        if (index<0){
+            return null;
+        }
+        Node root = new Node(postorder[index--]);
+        Node temp = root;
+        StackUsingLinkedList<Node> stack = new StackUsingLinkedList<>();
+        while (index>=0){
+            if (postorder[index] > temp.data){
+                stack.push(temp);
+                temp.rightChild=new Node(postorder[index--]);
+                temp=temp.rightChild;
+            }else if (stack.isEmpty() || postorder[index] > stack.stackTop().data){
+                temp.leftChild= new Node(postorder[index--]);
+                temp=temp.leftChild;
+            }else {
+                temp=stack.pop();
+            }
+        }
+        return root;
+    }
+
     public static void main(String[] args) {
         LinkedRepresentationOfBST bst = new LinkedRepresentationOfBST();
         int[] keys = {9, 15, 5, 20, 16, 8, 12, 3, 6};
@@ -305,5 +348,14 @@ public class LinkedRepresentationOfBST {
         System.out.println("\nResult of createFromPreorderRecursive : ");
         bst.inorder(root2);
 
+        int[] postorder1 = new int[]{15,10,25,20,45,50,40,30};
+        Node root3 = bst.createFromPostorderRecursive(null, postorder1, postorder1.length-1, new StackUsingLinkedList<>());
+        System.out.println("\nResult of createFromPostorderRecursive : ");
+        bst.inorder(root3);
+
+        int[] postorder2 = new int[]{15,10,25,20,45,50,40,30};
+        Node root4 = bst.createFromPostorder(postorder2);
+        System.out.println("\nResult of createFromPostorder : ");
+        bst.inorder(root4);
     }
 }
