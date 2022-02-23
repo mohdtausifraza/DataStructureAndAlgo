@@ -12,16 +12,18 @@ public class CycleInLinkedList {
      * SpaceComplexity  : O(1)
      */
     public boolean hasCycle(ListNode head) {
-        if(head == null || head.next == null){
+        if(head == null){
             return false;
         }
-        ListNode fast=head.next;
-        while(fast !=null){
-            if(fast == head)
+        ListNode fast=head;
+        ListNode slow=head;
+        fast = fast.next;
+        while(fast.next!=null && fast.next.next!=null){
+            if(fast==slow){
                 return true;
-            head = head.next;
-            fast = fast.next;
-            fast = fast !=null ? fast.next : null;
+            }
+            slow=slow.next;
+            fast=fast.next.next;
         }
         return false;
     }

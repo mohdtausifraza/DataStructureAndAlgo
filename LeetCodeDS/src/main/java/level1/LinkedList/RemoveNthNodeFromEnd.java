@@ -12,25 +12,27 @@
  */
 package level1.LinkedList;
 class RemoveNthNodeFromEnd {
-    public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode first=head, second=head;
-        if(head.next == null){
-            return null;
-        }
-        while(second.next != null){
-            if(n > 0){
-                second=second.next;
-                n--;
-            }else{
-                first = first.next;
-                second = second.next;
+    class Solution {
+        public ListNode removeNthFromEnd(ListNode head, int n) {
+            // Create a node before first node and make fasf and slow points its.
+            ListNode dummyHead = new ListNode(-1);
+            dummyHead.next = head;
+            ListNode fast = dummyHead;
+            ListNode slow = dummyHead;
+
+            // Move fast to n+1 position
+            for(int i=1 ; i<=n+1 ; i++){
+                fast = fast.next;
             }
+
+            // Move both fast and slow till fast pointes to null;
+            while(fast!=null){
+                fast = fast.next;
+                slow = slow.next;
+            }
+            slow.next = slow.next.next;
+            return dummyHead.next;
+
         }
-        if(n==1){
-            head = head.next;
-        }else{
-            first.next = first.next.next;
-        }
-        return head;
     }
 }
